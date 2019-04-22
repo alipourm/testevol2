@@ -6,8 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="evol-study" />
         <module name="evolstudy" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="evol-study" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

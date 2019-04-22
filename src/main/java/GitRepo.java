@@ -19,7 +19,7 @@ public class GitRepo{
             Iterator<RevCommit> it = rev.iterator();
             while(it.hasNext()){
                 RevCommit curCommit = it.next();
-                curCommit
+                git.diff()
                 it.next().getFullMessage();
             }
         } catch (GitAPIException e) {
