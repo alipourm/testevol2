@@ -10,6 +10,7 @@ import org.eclipse.jgit.diff.DiffEntry;
 
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -61,6 +62,7 @@ public class Differencer implements Task {
                         .call();
                 for (DiffEntry entry : diffs) {
                     System.out.println("Entry: " + entry);
+
                 }
             } catch (GitAPIException e) {
                 e.printStackTrace();
@@ -78,7 +80,8 @@ public class Differencer implements Task {
     public void go() {
         for(int i = 0; i < revisions.size() - 1; i++){
             diffFiles(revisions.get(i), revisions.get(i+1));
-            System.out.println("#######" + i +"");
+            RevCommit base = revisions.get(i);
+            System.out.println("#######" + i + " " + new Time(revisions.get(i).getCommitTime()) + " " + base.getShortMessage());
 
         }
 
