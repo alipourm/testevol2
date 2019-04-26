@@ -122,15 +122,36 @@ public class Differencer implements Task {
 
                         // This is only for MODIFY but we have ADD, MOV, RM too.
                         DiffEntry.ChangeType changeType = entry.getChangeType();
+                        ObjectId newObjectId = null;
+                        ObjectId oldObjectId = null;
+                        String filePatth = null;
+                        switch (changeType){
+                            case MODIFY:
+                                System.out.println(" MODIFY");
+                                filePatth = entry.getNewPath();
+                                newObjectId = entry.getNewId().toObjectId();
+                                oldObjectId = entry.getOldId().toObjectId();
+                                astDiff(newObjectId, oldObjectId, filePatth);
+                                break;
+                            case ADD:
+                                System.out.println(" ADD");
+                                filePatth = entry.getNewPath();
+                                newObjectId = entry.getNewId().toObjectId();
+                                break;
+                            case DELETE:
+                                System.out.println(" DELETE");
 
-                        if (changeType ==DiffEntry.ChangeType.MODIFY
-                            //    changeType==DiffEntry.ChangeType.ADD
-                        )
-                        {
-                            String st = entry.getNewPath();
-                            ObjectId newObjectId = entry.getNewId().toObjectId();
-                            ObjectId oldObjectId = entry.getOldId().toObjectId();
-                            astDiff(newObjectId, oldObjectId, "");
+                                break;
+
+                            case RENAME:
+                                System.out.println(" RENAME");
+
+                                break;
+
+                            case COPY:
+                                System.out.println("COPY");
+
+                                break;
 
                         }
                     }
