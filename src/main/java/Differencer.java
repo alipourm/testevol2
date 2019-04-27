@@ -1,6 +1,5 @@
 import gumtree.spoon.diff.Diff;
 import gumtree.spoon.diff.operations.Operation;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -14,13 +13,11 @@ import org.eclipse.jgit.diff.DiffEntry;
 
 import gumtree.spoon.*;
 import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -59,15 +56,14 @@ public class Differencer implements Task {
         this.revisions = revisions;
     }
 
-    public void astDiff(ObjectId newObj, ObjectId oldObj, String filePath){
-        TreeWalk treeWalk = new TreeWalk(repository);
+    public void astDiffModify(ObjectId newObj, ObjectId oldObj, String filePath){
 
         // head
         try {
 
 
             File oldTmpFile = File.createTempFile("old", ".java");
-            File newTmpFile = File.createTempFile("old", ".java");
+            File newTmpFile = File.createTempFile("new", ".java");
 
             ObjectLoader newLoader = repository.open(newObj);
             newLoader.copyTo(new FileOutputStream(newTmpFile));
@@ -82,8 +78,8 @@ public class Differencer implements Task {
             for (Operation op:astDiffs.getRootOperations()){
                 System.out.println("op "+op);
 
-             //   System.out.println(op.getSrcNode().toString());
-            //    System.out.println(op.getDstNode().toString());
+                //   System.out.println(op.getSrcNode().toString());
+                //    System.out.println(op.getDstNode().toString());
 
             }
 
@@ -94,6 +90,46 @@ public class Differencer implements Task {
         }
 
     }
+
+
+    public void astDiffAdd(ObjectId newObj, String filePath){
+        TreeWalk treeWalk = new TreeWalk(repository);
+
+        // head
+        try {
+            File tmpFile = File.createTempFile("old", ".java");
+
+            ObjectLoader newLoader = repository.open(newObj);
+            newLoader.copyTo(new FileOutputStream(tmpFile));
+
+
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void astDiffRemove(ObjectId oldObj, String filePath){
+        TreeWalk treeWalk = new TreeWalk(repository);
+
+        // head
+        try {
+
+
+            File tmpFile = File.createTempFile("old", ".java");
+
+            ObjectLoader newLoader = repository.open(oldObj);
+            newLoader.copyTo(new FileOutputStream(tmpFile));
+
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 
@@ -131,7 +167,7 @@ public class Differencer implements Task {
                                 filePatth = entry.getNewPath();
                                 newObjectId = entry.getNewId().toObjectId();
                                 oldObjectId = entry.getOldId().toObjectId();
-                                astDiff(newObjectId, oldObjectId, filePatth);
+                                astDiffModify(newObjectId, oldObjectId, filePatth);
                                 break;
                             case ADD:
                                 System.out.println(" ADD");
