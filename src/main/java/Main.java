@@ -11,35 +11,33 @@ public class Main {
     public static void main(String[] args) {
         Options options = new Options();
 
-        Option repoPathOption = new Option("r", "path to the directory");
-        Option outPathOption = new Option("o", "output file");
-        Option logPathOption = new Option("l", "logfile");
+        Option repoPathOption = new Option("repository", "Path to the repository folder");
+        Option prevCommit = new Option("prev", "Previous full commit hash");
+        Option currentCommit = new Option("current", "Current full commit hash");
 
         repoPathOption.setRequired(true);
         repoPathOption.setArgs(1);
-//        outPathOption.setRequired(true);
-//        logPathOption.setRequired(true);
-
+        prevCommit.setRequired(true);
+        prevCommit.setArgs(1);
+        currentCommit.setRequired(true);
+        currentCommit.setArgs(1);
 
         options.addOption(repoPathOption);
-        options.addOption(outPathOption);
-        options.addOption(logPathOption);
-
-
+        options.addOption(prevCommit);
+        options.addOption(currentCommit);
 
         CommandLineParser parser = new DefaultParser();
 
         try {
             CommandLine cmdLine = parser.parse(options, args);
 
-            String repoPath =  cmdLine.getOptionValue("r");
-            String outPath  = cmdLine.getOptionValue("o");
-            String logPath = cmdLine.getOptionValue("log");
-            System.out.println("repoPat "+ repoPath );
+            String repoPath =  cmdLine.getOptionValue("repository");
+            String prevCommitHash  = cmdLine.getOptionValue("prev");
+            String currentCommitHash = cmdLine.getOptionValue("current");
 
             Differencer d = new Differencer(Git.open(new File(repoPath)));
-            System.out.println("repoPat");
-            d.go();
+
+            d.goWithCommits(prevCommitHash, currentCommitHash);
         }
         catch (ParseException exp){
             System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
