@@ -101,9 +101,13 @@ public class TestFile {
         return productionFilePath.substring(lastIndex+1,productionFilePath.length());
     }
 
+    public long getNumOfSmells() {
+        return this.getTestSmells().stream().filter(Objects::nonNull).filter(AbstractSmell::getHasSmell).mapToLong(s -> s.getSmellyElements().stream().filter(SmellyElement::getHasSmell).count()).sum();
+    }
+
     @Override
     public String toString() {
-        long numOfSmells = this.getTestSmells().stream().filter(Objects::nonNull).filter(AbstractSmell::getHasSmell).mapToLong(s -> s.getSmellyElements().stream().filter(SmellyElement::getHasSmell).count()).sum();
+        long numOfSmells = this.getNumOfSmells();
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Result of " + this.app + "\n")

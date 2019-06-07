@@ -1,10 +1,14 @@
 import DiffResult.DiffResultAdded;
 import DiffResult.DiffResultInterface;
+import DiffResult.Result;
+import DiffResult.ResultItem;
 import Production.ProductionFile;
+import com.github.gumtreediff.actions.model.Move;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import gumtree.spoon.builder.SpoonGumTreeBuilder;
 import gumtree.spoon.diff.Diff;
 import gumtree.spoon.diff.operations.Operation;
 import org.eclipse.jgit.api.Git;
@@ -20,6 +24,11 @@ import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.diff.DiffEntry;
 import gumtree.spoon.*;
 import org.eclipse.jgit.treewalk.TreeWalk;
+import spoon.reflect.cu.position.NoSourcePosition;
+import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtElement;
+import spoon.reflect.declaration.CtPackage;
+import spoon.reflect.declaration.CtType;
 import testsmell.TestFile;
 import testsmell.TestSmellDetector;
 
@@ -45,6 +54,7 @@ public class Differencer implements Task {
     private TreeWalk treeWalk;
     private ArrayList<TestFile> testFiles;
     private ArrayList<ProductionFile> productionFiles;
+    private Result result;
 
     Differencer(Git _git) throws GitAPIException {
         git = _git;
@@ -53,6 +63,7 @@ public class Differencer implements Task {
         treeWalk = new TreeWalk(repository);
         testFiles = new ArrayList<>();
         productionFiles = new ArrayList<>();
+        this.result = Result.getResultInstance();
     }
 
     private void getRevisions() throws GitAPIException {
@@ -86,9 +97,48 @@ public class Differencer implements Task {
 
             Diff astDiffs = new AstComparator().compare(newTmpFile, oldTmpFile);
 //            Iterator<> it = astDiffs.getAllOperations().iterator();
+
+
+
             System.out.println("Changes are:");
 
             for (Operation op : astDiffs.getRootOperations()) {
+                ResultItem resultItem = this.result.createItem();
+                resultItem.level = ResultItem.LEVEL.METHOD;
+                resultItem.path = filePath;
+                resultItem.action = op.getAction().getClass().getSimpleName();
+                resultItem.what = op.getNode().getClass().getSimpleName().substring(2, op.getNode().getClass().getSimpleName().length() -4 );
+
+                // action position
+                CtElement element = op.getNode();
+                CtElement parent = element;
+                while (parent.getParent() != null && !(parent.getParent() instanceof CtPackage)) {
+                    parent = parent.getParent();
+                }
+                String position = "";
+                if (parent instanceof CtType) {
+                    position += ((CtType) parent).getQualifiedName();
+                }
+                if (element.getPosition() != null && !(element.getPosition() instanceof NoSourcePosition)) {
+                    position += ":" + element.getPosition().getLine();
+                }
+                if (op.getAction() instanceof Move) {
+                    CtElement elementDest = (CtElement) op.getAction().getNode().getMetadata(SpoonGumTreeBuilder.SPOON_OBJECT_DEST);
+                    position = element.getParent(CtClass.class).getQualifiedName();
+                    if (element.getPosition() != null && !(element.getPosition() instanceof NoSourcePosition)) {
+                        position += ":" + element.getPosition().getLine();
+                    }
+                    resultItem.from = position;
+                    position = elementDest.getParent(CtClass.class).getQualifiedName();
+                    if (elementDest.getPosition() != null && !(elementDest.getPosition() instanceof NoSourcePosition)) {
+                        position += ":" + elementDest.getPosition().getLine();
+                    }
+                    resultItem.to = position;
+                } else {
+                    resultItem.from = position;
+                }
+
+                result.addResultItem(resultItem);
                 System.out.println("op " + op);
 
                 //   System.out.println(op.getSrcNode().toString());
@@ -180,6 +230,7 @@ public class Differencer implements Task {
             oldTreeIter.reset(reader, oldHead.getTree());
             CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
             newTreeIter.reset(reader, head.getTree());
+            TestSmellDetector testSmellDetector = TestSmellDetector.createTestSmellDetector();
 
             // finally get the list of changed files
             try {
@@ -201,9 +252,45 @@ public class Differencer implements Task {
                         ObjectId newObjectId = null;
                         ObjectId oldObjectId = null;
                         String filePatth = null;
+
+                        ResultItem resultItem = this.result.createItem();
+                        resultItem.level = ResultItem.LEVEL.FILE;
+                        resultItem.path = entry.getOldPath().equals("/dev/null") ? "" : entry.getOldPath();
+                        resultItem.action = changeType.name();
+
+                        File tmpFile = File.createTempFile("new", ".java");
+
+                        ObjectLoader newLoader = repository.open(entry.getNewId().toObjectId());
+                        newLoader.copyTo(new FileOutputStream(tmpFile));
+
+                        Path path = Paths.get(tmpFile.getAbsolutePath());
+                        long lineCount = 0;
+                        try {
+                            lineCount = Files.lines(path).count();
+                        } catch (Exception e) {
+
+                        }
+
                         switch (changeType) {
                             case MODIFY:
                                 System.out.println(" MODIFY");
+
+                                File oldTmpFile = File.createTempFile("old", ".java");
+
+                                ObjectLoader oldLoader = repository.open(entry.getOldId().toObjectId());
+                                oldLoader.copyTo(new FileOutputStream(oldTmpFile));
+
+
+                                Path oldPath = Paths.get(oldTmpFile.getAbsolutePath());
+                                long oldLineCount = 0;
+                                try {
+                                    oldLineCount = Files.lines(oldPath).count();
+                                } catch (Exception e) {
+
+                                }
+                                resultItem.loc = lineCount;
+                                resultItem.changed_log = lineCount - oldLineCount;
+
                                 filePatth = entry.getNewPath();
                                 newObjectId = entry.getNewId().toObjectId();
                                 oldObjectId = entry.getOldId().toObjectId();
@@ -211,9 +298,20 @@ public class Differencer implements Task {
                                 break;
                             case ADD:
                                 System.out.println(" ADD");
+                                resultItem.what = entry.getNewPath();
+                                resultItem.loc = lineCount;
                                 filePatth = entry.getNewPath();
                                 newObjectId = entry.getNewId().toObjectId();
                                 diffResult.add(astDiffAdd(newObjectId, filePatth));
+                                // Check if last added element to test file array is the current file
+                                TestFile current = testFiles.size() > 0 ? testFiles.get(testFiles.size() - 1) : null;
+                                if (current != null && current.getApp().equals(entry.getNewPath())) {
+                                    testSmellDetector.detectSmells(current);
+                                    resultItem.is_test_file = true;
+                                    resultItem.smells = current.getNumOfSmells();
+                                    resultItem.test_methods = current.getNumOfMethods();
+                                    resultItem.test_ignored = current.getNumOfIgnoredTests();
+                                }
                                 break;
                             case DELETE:
                                 System.out.println(" DELETE");
@@ -230,6 +328,7 @@ public class Differencer implements Task {
 
                                 break;
                         }
+                        this.result.addResultItem(resultItem);
                     }
                 }
             } catch (GitAPIException e) {
@@ -241,16 +340,16 @@ public class Differencer implements Task {
             e.printStackTrace();
         }
 
-        TestSmellDetector testSmellDetector = TestSmellDetector.createTestSmellDetector();
 
-        testFiles.forEach(testFile -> {
-            try {
-                testSmellDetector.detectSmells(testFile);
-                System.out.println(testFile.toString());
-            } catch (IOException exception) {
-                throw new RuntimeException(exception.getMessage());
-            }
-        });
+
+//        testFiles.forEach(testFile -> {
+//            try {
+//                testSmellDetector.detectSmells(testFile);
+//                System.out.println(testFile.toString());
+//            } catch (IOException exception) {
+//                throw new RuntimeException(exception.getMessage());
+//            }
+//        });
 
         System.out.println("Done!");
 

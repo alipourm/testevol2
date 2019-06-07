@@ -1,3 +1,5 @@
+import DiffResult.CSVWriter;
+import DiffResult.Result;
 import org.apache.commons.cli.*;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -38,6 +40,11 @@ public class Main {
             Differencer d = new Differencer(Git.open(new File(repoPath)));
 
             d.goWithCommits(prevCommitHash, currentCommitHash);
+
+            Result result = Result.getResultInstance();
+            CSVWriter csvWriter = new CSVWriter(result);
+            csvWriter.write();
+
         }
         catch (ParseException exp){
             System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );

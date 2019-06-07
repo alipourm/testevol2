@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Class-Path: maven-invoker-3.0.1.jar org.eclipse.text-3.8.100.jar anima
+ l-sniffer-annotations-1.17.jar org.eclipse.core.commands-3.9.300.jar 
+ commons-io-2.6.jar checkstyle-8.21.jar org.eclipse.equinox.registry-3
+ .8.300.jar commons-codec-1.10.jar org.eclipse.core.filesystem-1.7.300
+ .jar gumtree-spoon-ast-diff-1.17.jar gson-2.8.5.jar error_prone_annot
+ ations-2.2.0.jar org.eclipse.core.resources-3.13.300.jar org.eclipse.
+ core.contenttype-3.7.300.jar trove4j-3.0.3.jar commons-logging-1.2.ja
+ r javaparser-core-3.2.4.jar org.eclipse.jgit-5.3.0.201903130848-r.jar
+  xz-1.8.jar picocli-3.9.6.jar jackson-core-2.9.8.jar j2objc-annotatio
+ ns-1.1.jar bcprov-jdk15on-1.60.jar jsch-0.1.54.jar org.eclipse.equino
+ x.common-3.10.300.jar classindex-3.4.jar org.eclipse.core.runtime-3.1
+ 5.200.jar maven-model-3.6.1.jar org.eclipse.core.jobs-3.10.300.jar bc
+ pkix-jdk15on-1.60.jar org.eclipse.equinox.app-1.4.100.jar failureacce
+ ss-1.0.1.jar org.eclipse.equinox.preferences-3.7.300.jar jsap-2.1.jar
+  bcpg-jdk15on-1.60.jar jackson-databind-2.9.8.jar JavaEWAH-1.1.6.jar 
+ checker-qual-2.5.2.jar listenablefuture-9999.0-empty-to-avoid-conflic
+ t-with-guava.jar plexus-component-annotations-1.7.1.jar jgrapht-core-
+ 1.0.1.jar commons-collections-3.2.2.jar core-2.1.2.jar maven-shared-u
+ tils-3.2.1.jar Saxon-HE-9.9.1-2.jar org.eclipse.jdt.core-3.15.0.jar s
+ immetrics-core-3.2.3.jar commons-cli-1.4.jar org.eclipse.core.express
+ ions-3.6.300.jar org.eclipse.osgi-3.13.300.jar spoon-core-7.3.0.jar j
+ zlib-1.1.1.jar antlr-2.7.7.jar antlr4-runtime-4.7.2.jar jsr305-3.0.2.
+ jar commons-lang3-3.8.1.jar commons-compress-1.18.jar slf4j-api-1.7.2
+ .jar plexus-utils-3.2.0.jar guava-27.1-jre.jar jackson-annotations-2.
+ 9.0.jar commons-beanutils-1.9.3.jar log4j-1.2.17.jar
+Main-Class: Main
+

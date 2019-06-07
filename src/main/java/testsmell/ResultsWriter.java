@@ -11,7 +11,8 @@ import java.util.List;
  */
 public class ResultsWriter {
 
-    private String outputFile;
+    private static ResultsWriter resultsWriter;
+
     private FileWriter writer;
 
     /**
@@ -20,7 +21,7 @@ public class ResultsWriter {
      */
     private ResultsWriter() throws IOException {
         String time =  String.valueOf(Calendar.getInstance().getTimeInMillis());
-        outputFile = MessageFormat.format("{0}_{1}_{2}.{3}", "Output","TestSmellDetection",time, "csv");
+        String outputFile = MessageFormat.format("{0}_{1}_{2}.{3}", "Output", "TestSmellDetection", time, "csv");
         writer = new FileWriter(outputFile,false);
     }
 
@@ -29,8 +30,11 @@ public class ResultsWriter {
      * @return new ResultsWriter instance
      * @throws IOException
      */
-    public static ResultsWriter createResultsWriter() throws IOException {
-        return new ResultsWriter();
+
+    public static ResultsWriter getResultsWriterInstance() throws IOException {
+        if (resultsWriter == null)
+            resultsWriter = new ResultsWriter();
+        return resultsWriter;
     }
 
     /**
@@ -57,8 +61,6 @@ public class ResultsWriter {
      * @throws IOException
      */
     private void writeOutput(List<String> dataValues)throws IOException {
-        writer = new FileWriter(outputFile,true);
-
         for (int i=0; i<dataValues.size(); i++) {
             writer.append(String.valueOf(dataValues.get(i)));
 
@@ -68,6 +70,9 @@ public class ResultsWriter {
                 writer.append(System.lineSeparator());
 
         }
+    }
+
+    public void finish() throws IOException {
         writer.flush();
         writer.close();
     }
