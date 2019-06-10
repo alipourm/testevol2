@@ -14,6 +14,7 @@ public class ResultItem
     public String path;
     public String action;
     public String what;
+    public String lineOfCode;
     public String from;
     public String to;
     public long loc;
@@ -29,7 +30,7 @@ public class ResultItem
 
     public ArrayList<String> toArray() {
         return (ArrayList<String>) Stream.of(
-                level.toString(), path, action, what, from, to,
+                level.toString(), path, action, what, lineOfCode, from, to,
                 Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "false",
                 Long.toString(smells), Long.toString(test_methods), Long.toString(test_ignored),
                 Long.toString(methods), Long.toString(statements), Long.toString(changed_methods),

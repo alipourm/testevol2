@@ -7,8 +7,10 @@ import com.github.gumtreediff.actions.model.Move;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.stmt.AssertStmt;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
+import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import gumtree.spoon.builder.SpoonGumTreeBuilder;
 import gumtree.spoon.diff.Diff;
@@ -136,7 +138,9 @@ public class Differencer implements Task {
                     }
                     resultItem.to = position;
                 } else {
-                    resultItem.from = position;
+                    resultItem.lineOfCode = position;
+                    resultItem.from = element.toString();
+                    resultItem.to = op.getDstNode().toString();
                 }
 
                 resultItem.methods = newResult.get(0);
@@ -171,6 +175,7 @@ public class Differencer implements Task {
 
         @Override
         public void visit(ClassOrInterfaceDeclaration n, Object arg) {
+            super.visit(n, arg);
             Path path = Paths.get(filePath);
             long lineCount = 0;
             try {
