@@ -7,6 +7,8 @@ import com.github.gumtreediff.actions.model.Move;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.stmt.BlockStmt;
+import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import gumtree.spoon.builder.SpoonGumTreeBuilder;
 import gumtree.spoon.diff.Diff;
@@ -95,11 +97,10 @@ public class Differencer implements Task {
             ObjectLoader oldLoader = repository.open(oldObj);
             oldLoader.copyTo(new FileOutputStream(oldTmpFile));
 
+            ArrayList<Long> oldResult = visitFile(oldTmpFile, filePath);
+            ArrayList<Long> newResult = visitFile(newTmpFile, filePath);
+
             Diff astDiffs = new AstComparator().compare(newTmpFile, oldTmpFile);
-//            Iterator<> it = astDiffs.getAllOperations().iterator();
-
-
-
             System.out.println("Changes are:");
 
             for (Operation op : astDiffs.getRootOperations()) {
@@ -138,6 +139,11 @@ public class Differencer implements Task {
                     resultItem.from = position;
                 }
 
+                resultItem.methods = newResult.get(0);
+                resultItem.statements = newResult.get(1);
+                resultItem.changed_methods = newResult.get(0) - oldResult.get(0);
+                resultItem.changed_statements = newResult.get(1) - oldResult.get(1);
+
                 result.addResultItem(resultItem);
                 System.out.println("op " + op);
 
@@ -172,10 +178,12 @@ public class Differencer implements Task {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            ArrayList<Long> result = (ArrayList<Long>) arg;
             int methods = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Test").isPresent()).count();
             int ignored = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Ignore").isPresent()).count();
-            if ( methods > 1) {
+            result.add((long) n.getMethods().size());
+            result.add((long) n.getChildNodesByType(ExpressionStmt.class).size());
+            if ( methods > 0) {
                 TestFile testFile = new TestFile(realFilePath, filePath, "");
                 testFile.setNumOfIgnoredTests(ignored);
                 testFile.setNumOfMethods(methods);
@@ -184,8 +192,21 @@ public class Differencer implements Task {
             } else {
                 productionFiles.add(new ProductionFile(realFilePath, filePath));
             }
-
         }
+    }
+
+    private ArrayList<Long> visitFile(File file, String filePath) {
+        try {
+            CompilationUnit compilationUnit = JavaParser.parse(file);
+
+            ClassVisitor classVisitor = new ClassVisitor(file.getAbsolutePath(), filePath);
+            ArrayList<Long> result = new ArrayList<>();
+            classVisitor.visit(compilationUnit, result);
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -202,10 +223,10 @@ public class Differencer implements Task {
             ObjectLoader newLoader = repository.open(newObj);
             newLoader.copyTo(new FileOutputStream(tmpFile));
 
-            CompilationUnit compilationUnit = JavaParser.parse(tmpFile);
-
-            ClassVisitor classVisitor = new ClassVisitor(tmpFile.getAbsolutePath(), filePath);
-            classVisitor.visit(compilationUnit, null);
+            ArrayList<Long> result = visitFile(tmpFile, filePath);
+            ResultItem resultItem = Result.getResultInstance().getCurrentItem();
+            resultItem.methods = result.get(0);
+            resultItem.statements = result.get(1);
 
 //            if (compilationUnit. (MethodDeclaration.class).stream()
 //                    .filter(Util::isValidTestMethod).count() > 0) {
@@ -289,7 +310,7 @@ public class Differencer implements Task {
 
                                 }
                                 resultItem.loc = lineCount;
-                                resultItem.changed_log = lineCount - oldLineCount;
+                                resultItem.changed_loc = lineCount - oldLineCount;
 
                                 filePatth = entry.getNewPath();
                                 newObjectId = entry.getNewId().toObjectId();
@@ -302,7 +323,7 @@ public class Differencer implements Task {
                                 resultItem.loc = lineCount;
                                 filePatth = entry.getNewPath();
                                 newObjectId = entry.getNewId().toObjectId();
-                                diffResult.add(astDiffAdd(newObjectId, filePatth));
+                                astDiffAdd(newObjectId, filePatth);
                                 // Check if last added element to test file array is the current file
                                 TestFile current = testFiles.size() > 0 ? testFiles.get(testFiles.size() - 1) : null;
                                 if (current != null && current.getApp().equals(entry.getNewPath())) {

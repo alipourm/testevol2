@@ -7,19 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e194ec1e-ce5b-4d47-9824-b546182994d2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/evol_study_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DiffResult/CSVWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DiffResult/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DiffResult/Writer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DiffResult/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DiffResult/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Differencer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Differencer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/testsmell/ResultsWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testsmell/ResultsWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/testsmell/TestFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testsmell/TestFile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,20 +26,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Differencer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="4" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+            <state relative-caret-position="315">
+              <caret line="193" column="13" selection-start-line="193" selection-start-column="13" selection-end-line="193" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1560171419309" expanded="true" signature="13237:13345" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/Result.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="13" column="107" selection-start-line="13" selection-start-column="107" selection-end-line="13" selection-end-column="107" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,13 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>method</find>
-      <find>compilation</find>
-      <find>VoidVisitorAdapter</find>
-      <find>methods</find>
-      <find>.visit</find>
-      <find>get</find>
-      <find>getTagName</find>
       <find>csv</find>
       <find>lineco</find>
       <find>repo</find>
@@ -95,6 +98,13 @@
       <find>resultsWriter</find>
       <find>resu</find>
       <find>resultWriter</find>
+      <find>test_m</find>
+      <find>loc</find>
+      <find>foreach</find>
+      <find>count</find>
+      <find>testSme</find>
+      <find>forbiddenExc</find>
+      <find>foodTemplateControllerTe</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;</replace>
@@ -126,14 +136,14 @@
         <option value="$PROJECT_DIR$/Output_TestSmellDetection_1559668816869.csv" />
         <option value="$PROJECT_DIR$/Output_TestSmellDetection_1559668922976.csv" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/writer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/CSVWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/DiffResult/Result.java" />
         <option value="$PROJECT_DIR$/Output_TestSmellDetection_1559848404625.csv" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Differencer.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/DiffResult/Result.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Differencer.java" />
       </list>
     </option>
   </component>
@@ -192,6 +202,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="testevol2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testevol2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="DiffResult" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -303,18 +321,20 @@
       <workItem from="1559078280553" duration="1000" />
       <workItem from="1559115779154" duration="236000" />
       <workItem from="1559540319535" duration="8280000" />
-      <workItem from="1559844989315" duration="4208000" />
+      <workItem from="1559844989315" duration="4833000" />
+      <workItem from="1560166481462" duration="4229000" />
+      <workItem from="1560171383295" duration="37000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43805000" />
+    <option name="totallyTimeSpent" value="48696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1981402" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20386267" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -329,7 +349,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32891566" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -345,125 +365,64 @@
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="Maven" order="8" weight="0.3297568" />
       <window_info anchor="right" id="Database" order="9" />
+      <window_info anchor="right" id="SciView" order="10" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/testsmell/TestFile.java</url>
-          <line>111</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>Result.getColumns()</expression-string>
+        <expression-string>n.getChildNodesByType(ExpressionStmt.class).size()</expression-string>
+        <language-id>JAVA</language-id>
+        <custom-info>com.github.javaparser.ast.stmt.ExpressionStmt</custom-info>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>n.getChildNodesByType(ExpressionStmt.class)</expression-string>
+        <language-id>JAVA</language-id>
+        <custom-info>com.github.javaparser.ast.stmt.ExpressionStmt</custom-info>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>n.getMethods().get(0).getChildNodes().get(4)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>current.getApp().equals(entry.getNewPath())</expression-string>
+        <expression-string>n.getMethods().get(0).getChildNodes().get(4).getChildNodes()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>astDiffs.</expression-string>
+        <expression-string>n.getMethods().get(0).getChildNodes()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>op.getAction().getClass().getSimpleName()</expression-string>
+        <expression-string>n.getMethods().get(0).getChildNodesByType(BlockStmt.class)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>op.getNode().getClass().getSimpleName()</expression-string>
+        <expression-string>n.getMethods().get(0)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>op.toStringAction(op.getAction())</expression-string>
+        <expression-string>n.getMethods()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>op.getAction().getNode()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>op.getAction().format()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>op.getAction().getName()</expression-string>
+        <expression-string>n.getChildNodes().get(3).getChildNodes()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../TestSmellDetector/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evol-study.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="44" lean-forward="true" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/smell/AssertionRoulette.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/javaparser/javaparser-core/3.2.4/javaparser-core-3.2.4-sources.jar!/com/github/javaparser/ast/visitor/VoidVisitorAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5886">
-          <caret line="107" column="79" selection-start-line="107" selection-start-column="61" selection-end-line="107" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/labs/gumtree-spoon-ast-diff/1.17/gumtree-spoon-ast-diff-1.17.jar!/gumtree/spoon/diff/operations/Operation.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/labs/gumtree-spoon-ast-diff/1.17/gumtree-spoon-ast-diff-1.17-sources.jar!/gumtree/spoon/diff/Diff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <caret line="50" column="65" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/Util.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -544,33 +503,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559646689314.csv" />
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559646734834.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559647456892.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559648079903.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="23" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559646867750.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="29" lean-forward="true" selection-start-column="29" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559647253640.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="62" lean-forward="true" selection-start-line="1" selection-start-column="62" selection-end-line="1" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559646734834.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559647456892.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559648079903.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559646867750.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559647253640.csv" />
     <entry file="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/labs/gumtree-spoon-ast-diff/1.17/gumtree-spoon-ast-diff-1.17-sources.jar!/gumtree/spoon/diff/operations/Operation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -578,27 +515,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559648420085.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="101" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667190512.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="93" selection-start-line="9" selection-start-column="90" selection-end-line="9" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667392025.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559648420085.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667190512.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667392025.csv" />
     <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/DiffResultInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -606,44 +525,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/TestSmellDetector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-567">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667489542.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="115" lean-forward="true" selection-start-line="19" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667636883.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="189" selection-start-line="13" selection-start-column="185" selection-end-line="13" selection-end-column="189" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559668572794.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="123" selection-start-line="19" selection-start-column="119" selection-end-line="19" selection-end-column="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559668685867.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="118" lean-forward="true" selection-start-line="19" selection-start-column="118" selection-end-line="19" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667489542.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559667636883.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559668572794.csv" />
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559668685867.csv" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jgit/org.eclipse.jgit/5.3.0.201903130848-r/org.eclipse.jgit-5.3.0.201903130848-r-sources.jar!/org/eclipse/jgit/diff/DiffEntry.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -656,16 +541,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559668922976.csv" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/TestFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/DiffResultAdded.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -697,13 +572,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559848339316.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559848339316.csv" />
     <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/ResultsWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
@@ -714,69 +583,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#511#512#0" expanded="true" />
-            <element signature="e#541#542#0" expanded="true" />
-            <element signature="e#695#696#0" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#767#768#0" expanded="true" />
-            <element signature="e#880#881#0" expanded="true" />
-            <element signature="e#914#915#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559668816869.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="27" selection-start-column="11" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559848404625.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559848466108.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="92" lean-forward="true" selection-start-line="12" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559895481422.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Differencer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3780">
-          <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1559895612887" expanded="true" signature="12071:12179" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="29" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/target/before/Output_TestSmellDetection_1559668816869.csv" />
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559848404625.csv" />
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559848466108.csv" />
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559895481422.csv" />
     <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/CSVWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -789,27 +599,140 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1559896441140.csv" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="45" column="30" lean-forward="true" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="353">
+          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="4" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/javaparser/javaparser-core/3.2.4/javaparser-core-3.2.4-sources.jar!/com/github/javaparser/ast/visitor/VoidVisitorAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="185" column="16" selection-start-line="185" selection-start-column="16" selection-end-line="185" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/TestSmellDetector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1560168019759.csv" />
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1560169217733.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1560168546100.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="138" lean-forward="true" selection-start-line="1" selection-start-column="138" selection-end-line="1" selection-end-column="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/TestFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-731">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="107" selection-start-line="13" selection-start-column="107" selection-end-line="13" selection-end-column="107" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1560170417606.csv">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="137" selection-start-line="19" selection-start-column="135" selection-end-line="19" selection-end-column="137" />
+        </state>
+      </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output_TestSmellDetection_1560171321910.csv">
+      <provider editor-type-id="text-editor">
+        <state>
+          <caret column="146" selection-start-column="146" selection-end-column="146" />
+        </state>
+      </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="false" fixedHeaders="false" rowLines="3">
+          <column index="0" width="100" />
+          <column index="1" width="100" />
+          <column index="2" width="100" />
+          <column index="3" width="100" />
+          <column index="4" width="100" />
+          <column index="5" width="100" />
+          <column index="6" width="100" />
+          <column index="7" width="100" />
+          <column index="8" width="100" />
+          <column index="9" width="100" />
+          <column index="10" width="100" />
+          <column index="11" width="100" />
+          <column index="12" width="100" />
+          <column index="13" width="100" />
+          <column index="14" width="100" />
+          <column index="15" width="100" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="60" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Differencer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="193" column="13" selection-start-line="193" selection-start-column="13" selection-end-line="193" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1560171419309" expanded="true" signature="13237:13345" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -824,7 +747,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

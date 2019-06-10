@@ -11,7 +11,7 @@ public class Result {
 
     private static List<String> columns = Stream.of(
             "level", "path", "action", "what", "from", "to", "loc", "changed_loc", "is_test_file", "smells",
-            "test_methods", "test_ignored"
+            "test_methods", "test_ignored", "methods", "statements", "changed_methods", "changed_statements"
     ).collect(Collectors.toList());
 
     private ResultItem current;
@@ -25,7 +25,7 @@ public class Result {
         return result;
     }
 
-    public ResultItem currentItem() {
+    public ResultItem getCurrentItem() {
         return current;
     }
 
