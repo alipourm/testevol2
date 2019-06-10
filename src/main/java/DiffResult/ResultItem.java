@@ -7,10 +7,13 @@ import java.util.stream.Stream;
 public class ResultItem
 {
     public enum LEVEL {
-        FILE, METHOD, ASSERTION
+        FILE, METHOD, COMMIT
     }
 
     public LEVEL level;
+    public int commit_counts;
+    public String newCommitAuthor;
+    public boolean isBugFix;
     public String path;
     public String action;
     public String what;
@@ -29,9 +32,15 @@ public class ResultItem
     public long changed_statements;
 
     public ArrayList<String> toArray() {
+        boolean is_assert = false;
+        if (from != null && from.length() > 6 && from.substring(0,6).equals("assert"))
+            is_assert = true;
+        if (to != null && to.length() > 6 && to.substring(0,6).equals("assert"))
+            is_assert = true;
         return (ArrayList<String>) Stream.of(
-                level.toString(), path, action, what, lineOfCode, from, to,
-                Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "false",
+                level.toString(), Integer.toString(commit_counts), newCommitAuthor, isBugFix ? "true" : "",
+                path, action, what, lineOfCode, is_assert ? "true" : "", from, to,
+                Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "",
                 Long.toString(smells), Long.toString(test_methods), Long.toString(test_ignored),
                 Long.toString(methods), Long.toString(statements), Long.toString(changed_methods),
                 Long.toString(changed_statements)

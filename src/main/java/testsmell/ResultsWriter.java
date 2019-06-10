@@ -6,6 +6,8 @@ import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 /**
  * This class is utilized to write output to a CSV file
  */
@@ -62,7 +64,7 @@ public class ResultsWriter {
      */
     private void writeOutput(List<String> dataValues)throws IOException {
         for (int i=0; i<dataValues.size(); i++) {
-            writer.append(String.valueOf(dataValues.get(i)));
+            writer.append(StringEscapeUtils.escapeCsv(dataValues.get(i)));
 
             if(i!=dataValues.size()-1)
                 writer.append(",");

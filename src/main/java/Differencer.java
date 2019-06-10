@@ -2,7 +2,6 @@ import DiffResult.DiffResultAdded;
 import DiffResult.DiffResultInterface;
 import DiffResult.Result;
 import DiffResult.ResultItem;
-import Production.ProductionFile;
 import com.github.gumtreediff.actions.model.Move;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -35,8 +34,7 @@ import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
 import testsmell.TestFile;
 import testsmell.TestSmellDetector;
-
-
+import util.GitMessage;
 
 
 import java.io.File;
@@ -55,18 +53,14 @@ public class Differencer implements Task {
     private List<RevCommit> revisions;
     private Git git;
     private Repository repository;
-    private TreeWalk treeWalk;
     private ArrayList<TestFile> testFiles;
-    private ArrayList<ProductionFile> productionFiles;
     private Result result;
 
     Differencer(Git _git) throws GitAPIException {
         git = _git;
         this.getRevisions();
         repository = git.getRepository();
-        treeWalk = new TreeWalk(repository);
         testFiles = new ArrayList<>();
-        productionFiles = new ArrayList<>();
         this.result = Result.getResultInstance();
     }
 
@@ -102,7 +96,7 @@ public class Differencer implements Task {
             ArrayList<Long> oldResult = visitFile(oldTmpFile, filePath);
             ArrayList<Long> newResult = visitFile(newTmpFile, filePath);
 
-            Diff astDiffs = new AstComparator().compare(newTmpFile, oldTmpFile);
+            Diff astDiffs = new AstComparator().compare(oldTmpFile, newTmpFile);
             System.out.println("Changes are:");
 
             for (Operation op : astDiffs.getRootOperations()) {
@@ -140,7 +134,7 @@ public class Differencer implements Task {
                 } else {
                     resultItem.lineOfCode = position;
                     resultItem.from = element.toString();
-                    resultItem.to = op.getDstNode().toString();
+                    resultItem.to = op.getDstNode() != null ? op.getDstNode().toString() : "";
                 }
 
                 resultItem.methods = newResult.get(0);
@@ -194,8 +188,6 @@ public class Differencer implements Task {
                 testFile.setNumOfMethods(methods);
                 testFile.setLines(lineCount);
                 testFiles.add(testFile);
-            } else {
-                productionFiles.add(new ProductionFile(realFilePath, filePath));
             }
         }
     }
@@ -253,8 +245,10 @@ public class Differencer implements Task {
 //            ObjectId head = repository.resolve(revstrNew);
             ObjectReader reader = repository.newObjectReader();
             CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+
             oldTreeIter.reset(reader, oldHead.getTree());
             CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+
             newTreeIter.reset(reader, head.getTree());
             TestSmellDetector testSmellDetector = TestSmellDetector.createTestSmellDetector();
 
@@ -385,6 +379,10 @@ public class Differencer implements Task {
         return revisions.stream().filter(r -> r.name().equals(commit)).findFirst().orElse(null);
     }
 
+    private int findCommitIndex(RevCommit revCommit) {
+        return revisions.indexOf(revCommit);
+    }
+
 
     public void go() {
         for (int i = 0; i < revisions.size() - 1; i++) {
@@ -399,6 +397,17 @@ public class Differencer implements Task {
     public void goWithCommits(final String prevCommit, String currentCommit) {
         RevCommit prevRevCommit = findCommit(prevCommit);
         RevCommit currentRevCommit = findCommit(currentCommit);
+
+        Result result = Result.getResultInstance();
+        ResultItem resultItem = result.createItem();
+        resultItem.level = ResultItem.LEVEL.COMMIT;
+        resultItem.from = prevCommit;
+        resultItem.to = currentCommit;
+        resultItem.isBugFix = GitMessage.isBugFix(currentRevCommit);
+        resultItem.newCommitAuthor = currentRevCommit.getAuthorIdent().getName();
+        resultItem.commit_counts = findCommitIndex(prevRevCommit) - findCommitIndex(currentRevCommit);
+        result.addResultItem(resultItem);
+
         diffFiles(currentRevCommit, prevRevCommit);
     }
 }
