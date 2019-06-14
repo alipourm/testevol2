@@ -23,7 +23,7 @@ public class ResultsWriter {
      */
     private ResultsWriter() throws IOException {
         String time =  String.valueOf(Calendar.getInstance().getTimeInMillis());
-        String outputFile = MessageFormat.format("{0}_{1}_{2}.{3}", "Output", "TestSmellDetection", time, "csv");
+        String outputFile = MessageFormat.format("{0}_{1}_{2}.{3}", "Output", "TestEvol", time, "csv");
         writer = new FileWriter(outputFile,false);
     }
 

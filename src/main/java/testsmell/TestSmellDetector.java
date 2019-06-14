@@ -38,8 +38,6 @@ public class TestSmellDetector {
         testSmells.add(new SensitiveEquality());
         testSmells.add(new VerboseTest());
         testSmells.add(new SleepyTest());
-        testSmells.add(new EagerTest());
-        testSmells.add(new LazyTest());
         testSmells.add(new DuplicateAssert());
         testSmells.add(new UnknownTest());
         testSmells.add(new IgnoredTest());

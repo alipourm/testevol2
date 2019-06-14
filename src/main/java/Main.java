@@ -16,6 +16,7 @@ public class Main {
         Option repoPathOption = new Option("repository", "Path to the repository folder");
         Option prevCommit = new Option("prev", "Previous full commit hash");
         Option currentCommit = new Option("current", "Current full commit hash");
+        Option follow = new Option("follow", "Follow commits from prev to current");
 
         repoPathOption.setRequired(true);
         repoPathOption.setArgs(1);
@@ -23,10 +24,12 @@ public class Main {
         prevCommit.setArgs(1);
         currentCommit.setRequired(true);
         currentCommit.setArgs(1);
+        follow.setArgs(0);
 
         options.addOption(repoPathOption);
         options.addOption(prevCommit);
         options.addOption(currentCommit);
+        options.addOption(follow);
 
         CommandLineParser parser = new DefaultParser();
 
@@ -36,10 +39,14 @@ public class Main {
             String repoPath =  cmdLine.getOptionValue("repository");
             String prevCommitHash  = cmdLine.getOptionValue("prev");
             String currentCommitHash = cmdLine.getOptionValue("current");
+            boolean shouldFollow = cmdLine.hasOption("follow");
 
             Differencer d = new Differencer(Git.open(new File(repoPath)));
 
-            d.goWithCommits(prevCommitHash, currentCommitHash);
+            if (shouldFollow)
+                d.followCommits(prevCommitHash, currentCommitHash);
+            else
+                d.goWithCommits(prevCommitHash, currentCommitHash);
 
             Result result = Result.getResultInstance();
             CSVWriter csvWriter = new CSVWriter(result);

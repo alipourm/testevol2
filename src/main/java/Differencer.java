@@ -1,7 +1,4 @@
-import DiffResult.DiffResultAdded;
-import DiffResult.DiffResultInterface;
-import DiffResult.Result;
-import DiffResult.ResultItem;
+import DiffResult.*;
 import com.github.gumtreediff.actions.model.Move;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -32,6 +29,9 @@ import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtPackage;
 import spoon.reflect.declaration.CtType;
+import spoon.support.reflect.declaration.CtMethodImpl;
+import testsmell.AbstractSmell;
+import testsmell.SmellyElement;
 import testsmell.TestFile;
 import testsmell.TestSmellDetector;
 import util.GitMessage;
@@ -93,8 +93,6 @@ public class Differencer implements Task {
             ObjectLoader oldLoader = repository.open(oldObj);
             oldLoader.copyTo(new FileOutputStream(oldTmpFile));
 
-            ArrayList<Long> oldResult = visitFile(oldTmpFile, filePath);
-            ArrayList<Long> newResult = visitFile(newTmpFile, filePath);
 
             Diff astDiffs = new AstComparator().compare(oldTmpFile, newTmpFile);
             System.out.println("Changes are:");
@@ -133,14 +131,14 @@ public class Differencer implements Task {
                     resultItem.to = position;
                 } else {
                     resultItem.lineOfCode = position;
-                    resultItem.from = element.toString();
+
+                    if(element instanceof CtMethodImpl)
+                        resultItem.from = ((CtMethodImpl) element).getSimpleName();
+                    else
+                        resultItem.from = element.toString();
+
                     resultItem.to = op.getDstNode() != null ? op.getDstNode().toString() : "";
                 }
-
-                resultItem.methods = newResult.get(0);
-                resultItem.statements = newResult.get(1);
-                resultItem.changed_methods = newResult.get(0) - oldResult.get(0);
-                resultItem.changed_statements = newResult.get(1) - oldResult.get(1);
 
                 result.addResultItem(resultItem);
                 System.out.println("op " + op);
@@ -170,36 +168,40 @@ public class Differencer implements Task {
         @Override
         public void visit(ClassOrInterfaceDeclaration n, Object arg) {
             super.visit(n, arg);
+
             Path path = Paths.get(filePath);
             long lineCount = 0;
+
             try {
                 lineCount = Files.lines(path).count();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ArrayList<Long> result = (ArrayList<Long>) arg;
+
+            FileVisitResult result = (FileVisitResult) arg;
             int methods = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Test").isPresent()).count();
             int ignored = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Ignore").isPresent()).count();
-            result.add((long) n.getMethods().size());
-            result.add((long) n.getChildNodesByType(ExpressionStmt.class).size());
-            if ( methods > 0) {
-                TestFile testFile = new TestFile(realFilePath, filePath, "");
-                testFile.setNumOfIgnoredTests(ignored);
-                testFile.setNumOfMethods(methods);
-                testFile.setLines(lineCount);
-                testFiles.add(testFile);
-            }
+
+            result.lineCount = lineCount;
+            result.methods = (long) n.getMethods().size();
+            result.statements = (long) n.getChildNodesByType(ExpressionStmt.class).size();
+            result.testMethods = (long) methods;
+            result.testIgnoredMethods = (long) ignored;
+
+            if ( methods > 0) result.testFile = new TestFile(realFilePath, filePath, "");
         }
     }
 
-    private ArrayList<Long> visitFile(File file, String filePath) {
+    private FileVisitResult visitFile(File file, String filePath) {
         try {
             CompilationUnit compilationUnit = JavaParser.parse(file);
 
             ClassVisitor classVisitor = new ClassVisitor(file.getAbsolutePath(), filePath);
-            ArrayList<Long> result = new ArrayList<>();
-            classVisitor.visit(compilationUnit, result);
-            return result;
+            FileVisitResult fileVisitResult = new FileVisitResult();
+
+            classVisitor.visit(compilationUnit, fileVisitResult);
+            return fileVisitResult;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -220,10 +222,10 @@ public class Differencer implements Task {
             ObjectLoader newLoader = repository.open(newObj);
             newLoader.copyTo(new FileOutputStream(tmpFile));
 
-            ArrayList<Long> result = visitFile(tmpFile, filePath);
+            FileVisitResult result = visitFile(tmpFile, filePath);
             ResultItem resultItem = Result.getResultInstance().getCurrentItem();
-            resultItem.methods = result.get(0);
-            resultItem.statements = result.get(1);
+            resultItem.methods = result.methods;
+            resultItem.statements = result.statements;
 
 //            if (compilationUnit. (MethodDeclaration.class).stream()
 //                    .filter(Util::isValidTestMethod).count() > 0) {
@@ -280,8 +282,23 @@ public class Differencer implements Task {
 
                         File tmpFile = File.createTempFile("new", ".java");
 
-                        ObjectLoader newLoader = repository.open(entry.getNewId().toObjectId());
-                        newLoader.copyTo(new FileOutputStream(tmpFile));
+                        if (changeType != DiffEntry.ChangeType.DELETE) { // In case of deletion, there is no new object to get
+                            ObjectLoader newLoader = repository.open(entry.getNewId().toObjectId());
+                            newLoader.copyTo(new FileOutputStream(tmpFile));
+                        } else {
+                            ObjectLoader newLoader = repository.open(entry.getOldId().toObjectId());
+                            newLoader.copyTo(new FileOutputStream(tmpFile));
+                        }
+
+                        FileVisitResult resultNewFile = visitFile(tmpFile.getAbsoluteFile(), entry.getNewPath());
+
+                        assert resultNewFile != null;
+                        resultItem.methods = resultNewFile.methods;
+                        resultItem.statements = resultNewFile.statements;
+
+                        resultItem.is_test_file = resultNewFile.isTestFile();
+                        resultItem.test_methods = resultNewFile.testMethods;
+                        resultItem.test_ignored = resultNewFile.testIgnoredMethods;
 
                         Path path = Paths.get(tmpFile.getAbsolutePath());
                         long lineCount = 0;
@@ -299,6 +316,13 @@ public class Differencer implements Task {
 
                                 ObjectLoader oldLoader = repository.open(entry.getOldId().toObjectId());
                                 oldLoader.copyTo(new FileOutputStream(oldTmpFile));
+
+                                FileVisitResult resultOldFile = visitFile(oldTmpFile.getAbsoluteFile(), entry.getOldPath());
+
+                                assert resultOldFile != null;
+
+                                resultItem.changed_methods = resultNewFile.methods - resultOldFile.methods;
+                                resultItem.changed_statements = resultNewFile.statements - resultOldFile.statements;
 
 
                                 Path oldPath = Paths.get(oldTmpFile.getAbsolutePath());
@@ -323,15 +347,6 @@ public class Differencer implements Task {
                                 filePatth = entry.getNewPath();
                                 newObjectId = entry.getNewId().toObjectId();
                                 astDiffAdd(newObjectId, filePatth);
-                                // Check if last added element to test file array is the current file
-                                TestFile current = testFiles.size() > 0 ? testFiles.get(testFiles.size() - 1) : null;
-                                if (current != null && current.getApp().equals(entry.getNewPath())) {
-                                    testSmellDetector.detectSmells(current);
-                                    resultItem.is_test_file = true;
-                                    resultItem.smells = current.getNumOfSmells();
-                                    resultItem.test_methods = current.getNumOfMethods();
-                                    resultItem.test_ignored = current.getNumOfIgnoredTests();
-                                }
                                 break;
                             case DELETE:
                                 System.out.println(" DELETE");
@@ -348,6 +363,23 @@ public class Differencer implements Task {
 
                                 break;
                         }
+                        if (resultNewFile.isTestFile()) {
+                            testSmellDetector.detectSmells(resultNewFile.testFile);
+                            resultItem.smells = resultNewFile.testFile.getNumOfSmells();
+
+                            for (AbstractSmell smell : resultNewFile.testFile.getTestSmells()) {
+                                try {
+                                    if (smell.getHasSmell())
+                                        resultItem.smell_types.add(String.valueOf(smell.getSmellyElements().stream().filter(SmellyElement::getHasSmell).count()));
+                                    else
+                                        resultItem.smell_types.add("0");
+                                }
+                                catch (NullPointerException e){
+                                    resultItem.smell_types.add("0");
+                                }
+                            }
+                        }
+
                         this.result.addResultItem(resultItem);
                     }
                 }
@@ -359,18 +391,6 @@ public class Differencer implements Task {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-//        testFiles.forEach(testFile -> {
-//            try {
-//                testSmellDetector.detectSmells(testFile);
-//                System.out.println(testFile.toString());
-//            } catch (IOException exception) {
-//                throw new RuntimeException(exception.getMessage());
-//            }
-//        });
-
         System.out.println("Done!");
 
     }
@@ -386,28 +406,35 @@ public class Differencer implements Task {
 
     public void go() {
         for (int i = 0; i < revisions.size() - 1; i++) {
-            diffFiles(revisions.get(i), revisions.get(i + 1));
-            RevCommit base = revisions.get(i);
-            System.out.println("#######" + i + revisions.get(i).name() + " " + new Time(revisions.get(i).getCommitTime()) + " " + base.getShortMessage());
-
+            goWithCommits(revisions.get(i), revisions.get(i + 1));
         }
-
     }
 
-    public void goWithCommits(final String prevCommit, String currentCommit) {
+    public void followCommits(String prevCommit, String currentCommit) {
         RevCommit prevRevCommit = findCommit(prevCommit);
         RevCommit currentRevCommit = findCommit(currentCommit);
+        for (int i = revisions.size() - findCommitIndex(prevRevCommit); i < revisions.size() - findCommitIndex(currentRevCommit); i++) {
+            goWithCommits(revisions.get(revisions.size() - i), revisions.get(revisions.size() - (i + 1)));
+        }
+    }
 
+    private void goWithCommits(RevCommit prevRevCommit, RevCommit currentRevCommit) {
         Result result = Result.getResultInstance();
         ResultItem resultItem = result.createItem();
         resultItem.level = ResultItem.LEVEL.COMMIT;
-        resultItem.from = prevCommit;
-        resultItem.to = currentCommit;
+        resultItem.from = prevRevCommit.getName();
+        resultItem.to = currentRevCommit.getName();
         resultItem.isBugFix = GitMessage.isBugFix(currentRevCommit);
         resultItem.newCommitAuthor = currentRevCommit.getAuthorIdent().getName();
         resultItem.commit_counts = findCommitIndex(prevRevCommit) - findCommitIndex(currentRevCommit);
         result.addResultItem(resultItem);
 
         diffFiles(currentRevCommit, prevRevCommit);
+    }
+
+    void goWithCommits(final String prevCommit, String currentCommit) {
+        RevCommit prevRevCommit = findCommit(prevCommit);
+        RevCommit currentRevCommit = findCommit(currentCommit);
+        goWithCommits(prevRevCommit, currentRevCommit);
     }
 }

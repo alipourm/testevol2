@@ -1,6 +1,7 @@
 package DiffResult;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +31,7 @@ public class ResultItem
     public long statements;
     public long changed_methods;
     public long changed_statements;
+    public List<String> smell_types = new ArrayList<>();
 
     public ArrayList<String> toArray() {
         boolean is_assert = false;
@@ -37,7 +39,8 @@ public class ResultItem
             is_assert = true;
         if (to != null && to.length() > 6 && to.substring(0,6).equals("assert"))
             is_assert = true;
-        return (ArrayList<String>) Stream.of(
+
+        ArrayList<String> toStringResult = (ArrayList<String>) Stream.of(
                 level.toString(), Integer.toString(commit_counts), newCommitAuthor, isBugFix ? "true" : "",
                 path, action, what, lineOfCode, is_assert ? "true" : "", from, to,
                 Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "",
@@ -45,5 +48,9 @@ public class ResultItem
                 Long.toString(methods), Long.toString(statements), Long.toString(changed_methods),
                 Long.toString(changed_statements)
         ).collect(Collectors.toList());
+
+        toStringResult.addAll(smell_types);
+
+        return toStringResult;
     }
 }

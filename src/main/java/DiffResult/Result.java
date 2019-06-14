@@ -1,5 +1,7 @@
 package DiffResult;
 
+import testsmell.TestSmellDetector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,10 +16,15 @@ public class Result {
             "test_methods", "test_ignored", "methods", "statements", "changed_methods", "changed_statements"
     ).collect(Collectors.toList());
 
+
+
     private ResultItem current;
     private ArrayList<ResultItem> resultItems = new ArrayList<>();
 
-    private Result() {}
+    private Result() {
+        TestSmellDetector testSmellDetector = new TestSmellDetector();
+        columns.addAll(testSmellDetector.getTestSmellNames());
+    }
 
     public static Result getResultInstance() {
         if (result==null)
