@@ -31,6 +31,9 @@ public class ResultItem
     public long statements;
     public long changed_methods;
     public long changed_statements;
+    public long no_add=0;
+    public long no_update=0;
+    public long no_delete=0;
     public List<String> smell_types = new ArrayList<>();
 
     public ArrayList<String> toArray() {
@@ -46,7 +49,8 @@ public class ResultItem
                 Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "",
                 Long.toString(smells), Long.toString(test_methods), Long.toString(test_ignored),
                 Long.toString(methods), Long.toString(statements), Long.toString(changed_methods),
-                Long.toString(changed_statements)
+                Long.toString(changed_statements), Long.toString(no_add), Long.toString(no_update),
+                Long.toString(no_delete)
         ).collect(Collectors.toList());
 
         toStringResult.addAll(smell_types);

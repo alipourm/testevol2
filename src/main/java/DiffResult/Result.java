@@ -12,8 +12,13 @@ public class Result {
     private static Result result;
 
     private static List<String> columns = Stream.of(
-            "level", "commit_counts", "new_commit_author", "is_bug_fix", "path", "action", "what", "line_of_code", "is_assert", "from", "to", "loc", "changed_loc", "is_test_file", "smells",
-            "test_methods", "test_ignored", "methods", "statements", "changed_methods", "changed_statements"
+            "level", "commit_counts", "new_commit_author", "is_bug_fix",
+            "path", "action", "what", "line_of_code", "is_assert", "from", "to",
+            "loc", "changed_loc", "is_test_file",
+            "smells", "test_methods", "test_ignored",
+            "methods", "statements", "changed_methods",
+            "changed_statements", "no_add", "no_update",
+            "no_delete"
     ).collect(Collectors.toList());
 
 

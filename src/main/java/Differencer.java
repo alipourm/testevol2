@@ -1,5 +1,8 @@
 import DiffResult.*;
+import com.github.gumtreediff.actions.model.Addition;
+import com.github.gumtreediff.actions.model.Delete;
 import com.github.gumtreediff.actions.model.Move;
+import com.github.gumtreediff.actions.model.Update;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -95,9 +98,20 @@ public class Differencer implements Task {
 
 
             Diff astDiffs = new AstComparator().compare(oldTmpFile, newTmpFile);
+
+            ResultItem fileResultItem = Result.getResultInstance().getCurrentItem();
+
             System.out.println("Changes are:");
 
             for (Operation op : astDiffs.getRootOperations()) {
+
+                if (op.getAction() instanceof Addition)
+                    fileResultItem.no_add++;
+                else if (op.getAction() instanceof Update)
+                    fileResultItem.no_update++;
+                else if (op.getAction() instanceof Delete)
+                    fileResultItem.no_delete++;
+
                 ResultItem resultItem = this.result.createItem();
                 resultItem.level = ResultItem.LEVEL.METHOD;
                 resultItem.path = filePath;
