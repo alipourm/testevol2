@@ -154,6 +154,8 @@ public class Differencer implements Task {
 
                 result.addResultItem(resultItem);
             }
+            oldTmpFile.delete();
+            newTmpFile.delete();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -239,7 +241,11 @@ public class Differencer implements Task {
 //                System.out.println("!!!!! Found Test method");
 //            }
 
+            try {
+                tmpFile.delete();
+            } catch (SecurityException e) {
 
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -274,7 +280,6 @@ public class Differencer implements Task {
                 ArrayList<DiffResultInterface> diffResult = new ArrayList<>();
 
                 for (DiffEntry entry : diffs) {
-                    System.out.println("Entry: " + entry);
 
                     if (entry.toString().trim().endsWith("java]")) {
                         DiffEntry.ChangeType changeType = entry.getChangeType();
@@ -324,8 +329,6 @@ public class Differencer implements Task {
 
                         switch (changeType) {
                             case MODIFY:
-                                System.out.println(" MODIFY");
-
                                 File oldTmpFile = File.createTempFile("old", ".java");
 
                                 ObjectLoader oldLoader = repository.open(entry.getOldId().toObjectId());
@@ -360,9 +363,13 @@ public class Differencer implements Task {
                                 newObjectId = entry.getNewId().toObjectId();
                                 oldObjectId = entry.getOldId().toObjectId();
                                 astDiffModify(newObjectId, oldObjectId, filePatth);
+                                try {
+                                    oldTmpFile.delete();
+                                } catch (SecurityException e) {
+
+                                }
                                 break;
                             case ADD:
-                                System.out.println(" ADD");
                                 resultItem.what = entry.getNewPath();
                                 resultItem.loc = lineCount;
                                 filePatth = entry.getNewPath();
@@ -402,6 +409,11 @@ public class Differencer implements Task {
                         }
 
                         this.result.addResultItem(resultItem);
+                        try {
+                            tmpFile.delete();
+                        } catch (SecurityException e) {
+
+                        }
                     }
                 }
             } catch (GitAPIException e) {

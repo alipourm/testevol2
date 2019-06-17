@@ -61,6 +61,13 @@ public class Main {
             System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
         } catch (IOException e) {
             e.printStackTrace();
+            Result result = Result.getResultInstance();
+            CSVWriter csvWriter = new CSVWriter(result);
+            try {
+                csvWriter.write("withError");
+            } catch (IOException i) {
+                System.err.println( "Problem writing final file!" );
+            }
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
