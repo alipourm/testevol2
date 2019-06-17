@@ -13,8 +13,8 @@ public class CSVWriter implements Writer
     }
 
     @Override
-    public void write() throws IOException {
-        ResultsWriter resultsWriter = ResultsWriter.getResultsWriterInstance();
+    public void write(String fileName) throws IOException {
+        ResultsWriter resultsWriter = ResultsWriter.getResultsWriterInstance(fileName);
         resultsWriter.writeColumnName(Result.getColumns());
         result.getResultItems().forEach(resultItem -> {
             try {

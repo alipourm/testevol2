@@ -101,8 +101,6 @@ public class Differencer implements Task {
 
             ResultItem fileResultItem = Result.getResultInstance().getCurrentItem();
 
-            System.out.println("Changes are:");
-
             for (Operation op : astDiffs.getRootOperations()) {
 
                 if (op.getAction() instanceof Addition)
@@ -155,11 +153,6 @@ public class Differencer implements Task {
                 }
 
                 result.addResultItem(resultItem);
-                System.out.println("op " + op);
-
-                //   System.out.println(op.getSrcNode().toString());
-                //    System.out.println(op.getDstNode().toString());
-
             }
 
         } catch (IOException e) {
@@ -188,7 +181,7 @@ public class Differencer implements Task {
 
             try {
                 lineCount = Files.lines(path).count();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -303,8 +296,15 @@ public class Differencer implements Task {
                             ObjectLoader newLoader = repository.open(entry.getOldId().toObjectId());
                             newLoader.copyTo(new FileOutputStream(tmpFile));
                         }
-
-                        FileVisitResult resultNewFile = visitFile(tmpFile.getAbsoluteFile(), entry.getNewPath());
+                        FileVisitResult resultNewFile;
+                        try {
+                            resultNewFile = visitFile(tmpFile.getAbsoluteFile(), entry.getNewPath());
+                        } catch (com.github.javaparser.ParseProblemException e) {
+                            resultItem.path = entry.getNewPath();
+                            resultItem.what = "EXCEPTION OCCURRED!";
+                            this.result.addResultItem(resultItem);
+                            continue;
+                        }
 
                         assert resultNewFile != null;
                         resultItem.methods = resultNewFile.methods;
@@ -330,8 +330,15 @@ public class Differencer implements Task {
 
                                 ObjectLoader oldLoader = repository.open(entry.getOldId().toObjectId());
                                 oldLoader.copyTo(new FileOutputStream(oldTmpFile));
+                                FileVisitResult resultOldFile = null;
 
-                                FileVisitResult resultOldFile = visitFile(oldTmpFile.getAbsoluteFile(), entry.getOldPath());
+                                try {
+                                    resultOldFile = visitFile(oldTmpFile.getAbsoluteFile(), entry.getOldPath());
+                                } catch (com.github.javaparser.ParseProblemException e) {
+                                    resultItem.from = "EXCEPTION OCCURRED!";
+                                    this.result.addResultItem(resultItem);
+                                    continue;
+                                }
 
                                 assert resultOldFile != null;
 
