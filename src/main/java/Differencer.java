@@ -50,6 +50,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Differencer implements Task {
 
@@ -182,8 +183,8 @@ public class Differencer implements Task {
             Path path = Paths.get(filePath);
             long lineCount = 0;
 
-            try {
-                lineCount = Files.lines(path).count();
+            try(Stream<String> s = Files.lines(path)) {
+                lineCount = s.count();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -293,6 +294,8 @@ public class Differencer implements Task {
                         resultItem.level = ResultItem.LEVEL.FILE;
                         resultItem.path = entry.getOldPath().equals("/dev/null") ? "" : entry.getOldPath();
                         resultItem.action = changeType.name();
+                        resultItem.commit = head.getName();
+                        resultItem.commitTime = head.getCommitTime();
 
                         File tmpFile = new File("new.java");
                                 //File.createTempFile("new", ".java");
@@ -311,6 +314,7 @@ public class Differencer implements Task {
                             resultItem.path = entry.getNewPath();
                             resultItem.what = "EXCEPTION OCCURRED!";
                             this.result.addResultItem(resultItem);
+                            tmpFile.delete();
                             continue;
                         }
 
@@ -324,8 +328,9 @@ public class Differencer implements Task {
 
                         Path path = Paths.get(tmpFile.getAbsolutePath());
                         long lineCount = 0;
-                        try {
-                            lineCount = Files.lines(path).count();
+
+                        try(Stream<String> s = Files.lines(path)) {
+                            lineCount = s.count();
                         } catch (Exception e) {
 
                         }
@@ -344,6 +349,7 @@ public class Differencer implements Task {
                                 } catch (com.github.javaparser.ParseProblemException e) {
                                     resultItem.from = "EXCEPTION OCCURRED!";
                                     this.result.addResultItem(resultItem);
+                                    oldTmpFile.delete();
                                     continue;
                                 }
 
@@ -355,8 +361,8 @@ public class Differencer implements Task {
 
                                 Path oldPath = Paths.get(oldTmpFile.getAbsolutePath());
                                 long oldLineCount = 0;
-                                try {
-                                    oldLineCount = Files.lines(oldPath).count();
+                                try(Stream<String> s = Files.lines(oldPath)) {
+                                    oldLineCount = s.count();
                                 } catch (Exception e) {
 
                                 }
@@ -462,11 +468,35 @@ public class Differencer implements Task {
         resultItem.from = prevRevCommit.getName();
         resultItem.to = currentRevCommit.getName();
         resultItem.isBugFix = GitMessage.isBugFix(currentRevCommit);
+        resultItem.commit = currentRevCommit.getName();
+        resultItem.commitTime = currentRevCommit.getCommitTime();
         resultItem.newCommitAuthor = currentRevCommit.getAuthorIdent().getName();
         resultItem.commit_counts = findCommitIndex(prevRevCommit) - findCommitIndex(currentRevCommit);
+        resultItem.commitIndex = findCommitIndex(currentRevCommit);
         result.addResultItem(resultItem);
 
         diffFiles(currentRevCommit, prevRevCommit);
+
+        ArrayList<ResultItem> resultItemsForCommit = result.getFileLevelResultItemByCommit(currentRevCommit.getName());
+        resultItemsForCommit.forEach(resultItem1 -> {
+            resultItem.loc += resultItem1.loc;
+            resultItem.changed_loc += resultItem1.changed_loc;
+            resultItem.is_test_file = resultItem1.is_test_file || resultItem.is_test_file;
+            resultItem.smells += resultItem1.smells;
+            resultItem.test_methods += resultItem1.test_methods;
+            resultItem.test_ignored += resultItem1.test_ignored;
+            resultItem.methods += resultItem1.methods;
+            resultItem.statements += resultItem1.statements;
+            resultItem.no_delete += resultItem1.no_delete;
+            resultItem.no_update += resultItem1.no_update;
+            resultItem.no_add += resultItem1.no_add;
+            if(resultItem.smell_types.size() == 0 && resultItem1.smell_types.size() > 0)
+                resultItem.smell_types.addAll(resultItem1.smell_types);
+            else if (resultItem1.smell_types.size() > 0)
+                for (int i=0; i<resultItem.smell_types.size();i++) {
+                    resultItem.smell_types.set(i,String.valueOf( Integer.valueOf(resultItem.smell_types.get(i)) + Integer.valueOf(resultItem1.smell_types.get(i) )));
+                }
+        });
     }
 
     void goWithCommits(final String prevCommit, String currentCommit) {

@@ -4,6 +4,7 @@ import testsmell.TestSmellDetector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -12,7 +13,7 @@ public class Result {
     private static Result result;
 
     private static List<String> columns = Stream.of(
-            "level", "commit_counts", "new_commit_author", "is_bug_fix",
+            "level", "commit_counts", "new_commit_author", "commit_index", "commit", "commit_time", "is_bug_fix",
             "path", "action", "what", "line_of_code", "is_assert", "from", "to",
             "loc", "changed_loc", "is_test_file",
             "smells", "test_methods", "test_ignored",
@@ -58,4 +59,14 @@ public class Result {
         return resultItems;
     }
 
+    public ArrayList<ResultItem> getFileLevelResultItemByCommit(String commit) {
+        Stream<ResultItem> s = this.resultItems
+                .stream()
+                .filter(resultItem -> resultItem.commit != null)
+                .filter(resultItem -> resultItem.commit.equals(commit))
+                .filter(resultItem -> resultItem.level == ResultItem.LEVEL.FILE);
+
+        System.out.println(commit);
+        return s.collect(Collectors.toCollection(ArrayList::new));
+    }
 }
