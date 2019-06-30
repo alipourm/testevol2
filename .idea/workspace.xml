@@ -7,8 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e194ec1e-ce5b-4d47-9824-b546182994d2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Differencer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Differencer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testsmell/smell/ResourceOptimism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testsmell/smell/ResourceOptimism.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,26 +27,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Differencer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="293">
+              <caret line="98" selection-start-line="98" selection-end-line="98" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="390">
-                <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/smell/ResourceOptimism.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="109" column="26" selection-start-line="109" selection-start-column="26" selection-end-line="109" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="42" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="398">
+              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -60,11 +69,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Exception O</find>
-      <find>test</find>
-      <find>changes</find>
       <find>ParseProblem</find>
-      <find>tmpfile</find>
       <find>tmpFile</find>
       <find>tempF</find>
       <find>System.out</find>
@@ -72,7 +77,6 @@
       <find>File.delete</find>
       <find>oldTmpFile</find>
       <find>createTempFile</find>
-      <find>createTemp</find>
       <find>e.printS</find>
       <find>files.line</find>
       <find>files.lines</find>
@@ -80,7 +84,6 @@
       <find>RenameDete</find>
       <find>loc</find>
       <find>Files.line</find>
-      <find>system.out</find>
       <find>resultItem.path</find>
       <find>isBugFix</find>
       <find>resultItem.commit</find>
@@ -90,14 +93,20 @@
       <find>try (</find>
       <find>path</find>
       <find>lines</find>
+      <find>system.out</find>
+      <find>tmpfile</find>
+      <find>createt</find>
+      <find>createTemp</find>
+      <find>tempFile</find>
+      <find>system.out.prin</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;</replace>
     </replaceStrings>
     <dirStrings>
-      <dir>$PROJECT_DIR$/src/main/java</dir>
       <dir>$PROJECT_DIR$/src</dir>
       <dir>$PROJECT_DIR$/src/main/java/testsmell/smell</dir>
+      <dir>$PROJECT_DIR$/src/main/java</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -127,16 +136,17 @@
         <option value="$PROJECT_DIR$/src/main/java/util/GitMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/FileVisitResult.java" />
         <option value="$PROJECT_DIR$/src/main/java/testsmell/TestSmellDetector.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/Output_TestEvol_1560774547006.csv" />
         <option value="$PROJECT_DIR$/src/main/java/testsmell/ResultsWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/Writer.java" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/CSVWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Differencer.java" />
         <option value="$PROJECT_DIR$/src/main/java/DiffResult/Result.java" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/Differencer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/testsmell/smell/ResourceOptimism.java" />
       </list>
     </option>
   </component>
@@ -356,7 +366,7 @@
       <workItem from="1560534607498" duration="10430000" />
       <workItem from="1560871447750" duration="444000" />
       <workItem from="1560872807734" duration="8312000" />
-      <workItem from="1561915875157" duration="1465000" />
+      <workItem from="1561915875157" duration="2562000" />
     </task>
     <task id="LOCAL-00001" summary="Add some more AST metrics">
       <created>1560523291613</created>
@@ -390,7 +400,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86314000" />
+    <option name="totallyTimeSpent" value="87411000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -403,9 +413,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2267525" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2267525" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -575,13 +584,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/smell/EmptyTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Output_TestEvol_1560501562721.csv" />
     <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/smell/AssertionRoulette.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -630,13 +632,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Output_TestEvol_1560523097330.csv" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Output_TestEvol_1560682260221.csv" />
     <entry file="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/spoon-core/7.3.0/spoon-core-7.3.0-sources.jar!/spoon/reflect/declaration/CtMethod.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -825,16 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Differencer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="207" column="66" selection-start-line="207" selection-start-column="66" selection-end-line="207" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/DiffResult/ResultItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -869,9 +854,33 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="390">
-            <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+            <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Differencer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/testsmell/smell/ResourceOptimism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="109" column="26" selection-start-line="109" selection-start-column="26" selection-end-line="109" selection-end-column="26" />
         </state>
       </provider>
     </entry>

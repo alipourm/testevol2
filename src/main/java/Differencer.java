@@ -88,10 +88,8 @@ public class Differencer implements Task {
         try {
 
 
-            File oldTmpFile = new File("old2.java");
-                    //File.createTempFile("old", ".java");
-            File newTmpFile = new File("new2.java");
-                    //File.createTempFile("new", ".java");
+            File oldTmpFile = File.createTempFile("old", ".java");
+            File newTmpFile = File.createTempFile("new", ".java");
             ObjectLoader newLoader = repository.open(newObj);
             newLoader.copyTo(new FileOutputStream(newTmpFile));
 
@@ -228,8 +226,7 @@ public class Differencer implements Task {
 
         // head
         try {
-            File tmpFile = new File("new3.java");
-                    //File.createTempFile("new", ".java");
+            File tmpFile = File.createTempFile("new", ".java");
 
             ObjectLoader newLoader = repository.open(newObj);
             newLoader.copyTo(new FileOutputStream(tmpFile));
@@ -297,8 +294,7 @@ public class Differencer implements Task {
                         resultItem.commit = head.getName();
                         resultItem.commitTime = head.getCommitTime();
 
-                        File tmpFile = new File("new.java");
-                                //File.createTempFile("new", ".java");
+                        File tmpFile = File.createTempFile("new", ".java");
 
                         if (changeType != DiffEntry.ChangeType.DELETE) { // In case of deletion, there is no new object to get
                             ObjectLoader newLoader = repository.open(entry.getNewId().toObjectId());
@@ -337,8 +333,7 @@ public class Differencer implements Task {
 
                         switch (changeType) {
                             case MODIFY:
-                                File oldTmpFile = new File("old.java");
-                                        //File.createTempFile("old", ".java");
+                                File oldTmpFile = File.createTempFile("old", ".java");
 
                                 ObjectLoader oldLoader = repository.open(entry.getOldId().toObjectId());
                                 oldLoader.copyTo(new FileOutputStream(oldTmpFile));
@@ -387,17 +382,14 @@ public class Differencer implements Task {
                                 astDiffAdd(newObjectId, filePatth);
                                 break;
                             case DELETE:
-                                System.out.println(" DELETE");
 
                                 break;
 
                             case RENAME:
-                                System.out.println(" RENAME");
 
                                 break;
 
                             case COPY:
-                                System.out.println("COPY");
 
                                 break;
                         }

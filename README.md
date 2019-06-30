@@ -24,5 +24,5 @@ Using BEAGLE
 Compile the code
 ----------------
 1. clone the source code
-2. run `mvn package`
+2. run `mvn clean compile assembly:single`
 3. Look for the JAR file located in target directory 

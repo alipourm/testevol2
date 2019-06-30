@@ -112,7 +112,7 @@ public class ResourceOptimism extends AbstractSmell {
                     }
                 }
             } else {
-                System.out.println(n.getType());
+                //System.out.println(n.getType());
             }
             super.visit(n, arg);
         }
