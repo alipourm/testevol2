@@ -1,6 +1,7 @@
 import DiffResult.CSVWriter;
 import DiffResult.Result;
 import org.apache.commons.cli.*;
+import org.apache.commons.lang3.ObjectUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
@@ -13,39 +14,41 @@ public class Main {
     public static void main(String[] args) {
         Options options = new Options();
 
-        Option repoPathOption = new Option("repository", "Path to the repository folder");
-        Option prevCommit = new Option("prev", "Previous full commit hash");
-        Option currentCommit = new Option("current", "Current full commit hash");
-        Option follow = new Option("follow", "Follow commits from prev to current");
+        Option repoPathOption = new Option("repository", "Path to the repository folder. Default: Current Directory");
+        Option prevCommit = new Option("prev", "Previous full commit hash. Default: First Commit");
+        Option currentCommit = new Option("current", "Current full commit hash. Default: Last Commit");
+        Option follow = new Option("follow", "Follow commits from prev to current. Default: false");
         Option fileName = new Option("dest", "Destination File Name");
 
-        repoPathOption.setRequired(true);
         repoPathOption.setArgs(1);
-        prevCommit.setRequired(true);
         prevCommit.setArgs(1);
-        currentCommit.setRequired(true);
         currentCommit.setArgs(1);
         follow.setArgs(0);
         fileName.setArgs(1);
 
-        options.addOption(repoPathOption);
-        options.addOption(prevCommit);
-        options.addOption(currentCommit);
-        options.addOption(follow);
-        options.addOption(fileName);
+        options.addOption(repoPathOption)
+                .addOption(prevCommit)
+                .addOption(currentCommit)
+                .addOption(follow)
+                .addOption(fileName);
 
         CommandLineParser parser = new DefaultParser();
 
         try {
             CommandLine cmdLine = parser.parse(options, args);
 
-            String repoPath =  cmdLine.getOptionValue("repository");
-            String prevCommitHash  = cmdLine.getOptionValue("prev");
+            String repoPath = ObjectUtils.defaultIfNull(cmdLine.getOptionValue("repository"), ".");
+
+            String prevCommitHash = cmdLine.getOptionValue("prev");
             String currentCommitHash = cmdLine.getOptionValue("current");
+
             boolean shouldFollow = cmdLine.hasOption("follow");
             String destFileName = cmdLine.getOptionValue("dest");
 
             Differencer d = new Differencer(Git.open(new File(repoPath)));
+
+            prevCommitHash = (prevCommitHash == null) ? d.getFirstCommit() : prevCommitHash;
+            currentCommitHash = (currentCommitHash == null) ? d.getLastCommit() : currentCommitHash;
 
             if (shouldFollow)
                 d.followCommits(prevCommitHash, currentCommitHash);
@@ -56,9 +59,8 @@ public class Main {
             CSVWriter csvWriter = new CSVWriter(result);
             csvWriter.write(destFileName);
 
-        }
-        catch (ParseException exp){
-            System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
+        } catch (ParseException exp) {
+            System.err.println("Parsing failed.  Reason: " + exp.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
             Result result = Result.getResultInstance();
@@ -66,7 +68,7 @@ public class Main {
             try {
                 csvWriter.write("withError");
             } catch (IOException i) {
-                System.err.println( "Problem writing final file!" );
+                System.err.println("Problem writing final file!");
             }
         } catch (GitAPIException e) {
             e.printStackTrace();

@@ -17,6 +17,7 @@ public class ResultItem
     public long commitIndex;
     public String commit;
     public int commitTime;
+    public String commitMessage;
     public boolean isBugFix;
     public String path;
     public String action;
@@ -47,7 +48,7 @@ public class ResultItem
             is_assert = true;
 
         ArrayList<String> toStringResult = (ArrayList<String>) Stream.of(
-                level.toString(), Integer.toString(commit_counts), newCommitAuthor, Long.toString(commitIndex), commit, String.valueOf(commitTime) , isBugFix ? "true" : "",
+                level.toString(), Integer.toString(commit_counts), newCommitAuthor, Long.toString(commitIndex), commit, String.valueOf(commitTime) , commitMessage, isBugFix ? "true" : "",
                 path, action, what, lineOfCode, is_assert ? "true" : "", from, to,
                 Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "",
                 Long.toString(smells), Long.toString(test_methods), Long.toString(test_ignored),

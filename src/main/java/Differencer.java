@@ -445,6 +445,14 @@ public class Differencer implements Task {
         }
     }
 
+    public String getFirstCommit() {
+        return revisions.get(revisions.size()-1).name();
+    }
+
+    public String getLastCommit() {
+        return revisions.get(0).name();
+    }
+
     public void followCommits(String prevCommit, String currentCommit) {
         RevCommit prevRevCommit = findCommit(prevCommit);
         RevCommit currentRevCommit = findCommit(currentCommit);
@@ -462,6 +470,7 @@ public class Differencer implements Task {
         resultItem.isBugFix = GitMessage.isBugFix(currentRevCommit);
         resultItem.commit = currentRevCommit.getName();
         resultItem.commitTime = currentRevCommit.getCommitTime();
+        resultItem.commitMessage = currentRevCommit.getFullMessage();
         resultItem.newCommitAuthor = currentRevCommit.getAuthorIdent().getName();
         resultItem.commit_counts = findCommitIndex(prevRevCommit) - findCommitIndex(currentRevCommit);
         resultItem.commitIndex = findCommitIndex(currentRevCommit);

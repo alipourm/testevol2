@@ -5,7 +5,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 public class GitMessage {
     private static String[] keywords = {
-            "error", "bug", "issue", "mistake", "incorrect", "fault", "defect", "address an issue", "fix", "fixed"};
+            "error", "bug", "issue", "mistake", "incorrect", "fault", "defect", "address an issue", "fix", "fixed", "fixing"};
 
     public static boolean isBugFix(RevCommit revCommit){
         String msg = revCommit.getFullMessage().toLowerCase();
