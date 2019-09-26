@@ -1,4 +1,4 @@
-BEAGLE -- version 1.0.0
+BEAGLE -- version 1.1.1
 ================
 BEAGLE is a lightweight tool for providing a comprehensive picture of the evolution of tests in the project history. 
 It provides information about the quality of tests measured by test smells. BEAGLE also tracks changes at various 
@@ -19,6 +19,13 @@ Using BEAGLE
     - `java -jar beagle.jar -repository <PATH_TO_REPOSITORY> -prev <COMMIT_A> -current <COMMIT_B> -follow`
 3. Set specific file name for the output CSV file
     - `java -jar beagle.jar -repository <PATH_TO_REPOSITORY> -prev <COMMIT_A> -current <COMMIT_B> -dest <FILE_NAME>`
+    
+These are default values for the arguments:
+
+- `-repository` Current working directory
+- `-prev` First commit
+- `-current` Last commit
+- `-follow` False
     
 
 Compile the code

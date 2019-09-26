@@ -43,6 +43,7 @@ import util.GitMessage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -181,7 +182,7 @@ public class Differencer implements Task {
             Path path = Paths.get(filePath);
             long lineCount = 0;
 
-            try(Stream<String> s = Files.lines(path)) {
+            try(Stream<String> s = Files.lines(path, Charset.forName("ISO-8859-1"))) {
                 lineCount = s.count();
             } catch (Exception e) {
                 e.printStackTrace();
