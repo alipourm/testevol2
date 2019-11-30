@@ -1,4 +1,4 @@
-BEAGLE -- version 1.1.1
+BEAGLE -- version 1.1.3
 ================
 BEAGLE is a lightweight tool for providing a comprehensive picture of the evolution of tests in the project history. 
 It provides information about the quality of tests measured by test smells. BEAGLE also tracks changes at various 

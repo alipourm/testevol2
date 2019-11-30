@@ -23,6 +23,7 @@ public class ResultItem
     public String action;
     public String what;
     public String lineOfCode;
+    public String testCaseName;
     public String from;
     public String to;
     public long loc;
@@ -49,7 +50,7 @@ public class ResultItem
 
         ArrayList<String> toStringResult = (ArrayList<String>) Stream.of(
                 level.toString(), Integer.toString(commit_counts), newCommitAuthor, Long.toString(commitIndex), commit, String.valueOf(commitTime) , commitMessage, isBugFix ? "true" : "",
-                path, action, what, lineOfCode, is_assert ? "true" : "", from, to,
+                path, action, what, lineOfCode, testCaseName, is_assert ? "true" : "", from, to,
                 Long.toString(loc), Long.toString(changed_loc), is_test_file ? "true": "",
                 Long.toString(smells), Long.toString(test_methods), Long.toString(test_ignored),
                 Long.toString(methods), Long.toString(statements), Long.toString(changed_methods),

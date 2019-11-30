@@ -14,7 +14,7 @@ public class Result {
 
     private static List<String> columns = Stream.of(
             "level", "commit_counts", "new_commit_author", "commit_index", "commit", "commit_time", "commitMessage", "is_bug_fix",
-            "path", "action", "what", "line_of_code", "is_assert", "from", "to",
+            "path", "action", "what", "line_of_code", "test_case", "is_assert", "from", "to",
             "loc", "changed_loc", "is_test_file",
             "smells", "test_methods", "test_ignored",
             "methods", "statements", "changed_methods",

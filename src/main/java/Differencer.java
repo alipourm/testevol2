@@ -112,6 +112,8 @@ public class Differencer implements Task {
                     fileResultItem.no_delete++;
 
                 ResultItem resultItem = this.result.createItem();
+                resultItem.commit = fileResultItem.commit;
+                resultItem.commitMessage = fileResultItem.commitMessage;
                 resultItem.level = ResultItem.LEVEL.METHOD;
                 resultItem.path = filePath;
                 resultItem.action = op.getAction().getClass().getSimpleName();
@@ -147,8 +149,19 @@ public class Differencer implements Task {
 
                     if(element instanceof CtMethodImpl)
                         resultItem.from = ((CtMethodImpl) element).getSimpleName();
-                    else
+                    else {
+                        CtElement methodElement = element; // Find the method
+                        while (methodElement != null && !(methodElement instanceof CtMethodImpl)) {
+                            methodElement = methodElement.getParent();
+                        }
+                        if (methodElement != null) {
+                            resultItem.is_test_file = methodElement.getAnnotations().stream().anyMatch(a -> a.getAnnotationType().getSimpleName().equals("Test"));
+                            if (resultItem.is_test_file) {
+                                resultItem.testCaseName = ((CtMethodImpl) methodElement).getSimpleName();
+                            }
+                        }
                         resultItem.from = element.toString();
+                    }
 
                     resultItem.to = op.getDstNode() != null ? op.getDstNode().toString() : "";
                 }
@@ -189,8 +202,8 @@ public class Differencer implements Task {
             }
 
             FileVisitResult result = (FileVisitResult) arg;
-            int methods = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Test").isPresent()).count();
-            int ignored = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Ignore").isPresent()).count();
+            int methods = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Test").isPresent() || m.getAnnotationByName("org.junit.Test").isPresent()).count();
+            int ignored = (int) n.getMethods().stream().filter(m -> m.getAnnotationByName("Ignore").isPresent() || m.getAnnotationByName("org.junit.Ignore").isPresent() ).count();
 
             result.lineCount = lineCount;
             result.methods = (long) n.getMethods().size();
